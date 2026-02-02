@@ -1,0 +1,25 @@
+.emptyTaskContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 24px;
+  max-width: 400px;
+  margin: 0 auto;
+  transition: all 0.3s ease;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 8px;
+}
+
+.description {
+  font-size: 14px;
+  color: #534e4e;
+  line-height: 1.5;
+  max-width: 300px;
+}

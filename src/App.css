@@ -1,0 +1,17 @@
+#root {
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-container {
+  background: #e7e9e8;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

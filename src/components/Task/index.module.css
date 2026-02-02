@@ -1,0 +1,217 @@
+.taskContainer {
+  width: 100%;
+  height: 6dvh;
+  background: linear-gradient(145deg, #ffffff, #f8f9fa);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  position: relative;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  gap: 12px;
+}
+
+.taskContainer:hover {
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08),
+    0 2px 6px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
+  border-color: rgba(0, 0, 0, 0.08);
+}
+
+.controlButtons {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 9px;
+  margin-right: 50px;
+  box-sizing: content-box;
+  flex-shrink: 0;
+  order: 4;
+}
+
+.deleteIcon {
+  color: #dc3545;
+  font-size: 22px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.createIcon {
+  color: #28a745;
+  font-size: 22px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.saveEditIcon {
+  color: #28a745;
+  font-size: 22px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.timeContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  padding: 6px 12px;
+  font-size: 13px;
+  color: #6c757d;
+  font-weight: 500;
+  order: 3;
+  min-width: 120px;
+}
+
+.checkbox {
+  scale: 1.1;
+  flex-shrink: 0;
+  margin-left: 25px;
+  order: 1;
+}
+
+.checkbox :global(.ant-checkbox .ant-checkbox-input) {
+  opacity: 1;
+}
+
+.checkbox :global(.ant-checkbox .ant-checkbox-inner) {
+  background-color: #ffffff;
+  border: 2px solid #adb5bd;
+  width: 20px;
+  height: 20px;
+  transition: all 0.3s ease;
+}
+
+.checkbox :global(.ant-checkbox:hover .ant-checkbox-inner) {
+  border-color: #28a745;
+}
+
+.checkbox :global(.ant-checkbox-checked .ant-checkbox-inner) {
+  background-color: #28a745;
+  border-color: #28a745;
+}
+
+.checkbox :global(.ant-checkbox-checked::after) {
+  border-color: #28a745;
+}
+
+.textContent {
+  display: block;
+  width: 50%;
+  min-height: 30px;
+  max-height: 50px;
+  padding: 8px 12px;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  font-size: 15px;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
+  color: #212529;
+  line-height: 1.5;
+  box-sizing: border-box;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: all 0.3s ease;
+  order: 2;
+  flex: 1;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+}
+
+.textContent::-webkit-scrollbar {
+  width: 6px;
+}
+
+.textContent::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 3px;
+}
+
+.textContent::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
+
+.textContent::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.textContent {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.3) transparent;
+}
+
+.textContent {
+  -ms-overflow-style: auto;
+}
+
+.textContent input {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  line-height: inherit;
+  box-sizing: border-box;
+  resize: none;
+}
+
+.textContent input:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.textContent input::placeholder {
+  color: rgba(33, 37, 41, 0.6);
+}
+
+.taskContainer::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  background: linear-gradient(to bottom, #28a745, #20c997);
+  border-radius: 0 4px 4px 0;
+}
+
+.taskContainer.completed {
+  opacity: 0.9;
+  background: linear-gradient(145deg, #f8fff9, #f0f8f3);
+}
+
+.taskContainer.completed .textContent {
+  text-decoration: line-through;
+}
+
+.taskContainer.completed::before {
+  background: linear-gradient(to bottom, #6c757d, #adb5bd);
+}
