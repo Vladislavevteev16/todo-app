@@ -13,6 +13,19 @@
   -ms-overflow-style: none;
 }
 
+.taskListContainer li {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.taskListContainer::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+}
+
 @media (max-width: 500px) {
   .taskListContainer {
     width: 97%;
@@ -28,17 +41,4 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
-}
-
-.taskListContainer li {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.taskListContainer::-webkit-scrollbar {
-  display: none;
-  width: 0;
-  height: 0;
-  background: transparent;
 }

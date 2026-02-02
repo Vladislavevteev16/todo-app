@@ -20,30 +20,6 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-@media (max-width: 500px) {
-  .taskAdderContainer {
-    width: 300px;
-    min-height: 280px;
-    padding: 32px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: linear-gradient(135deg, #878a97 0%, #295232 100%);
-    border-radius: 20px;
-    position: fixed;
-    z-index: 9999;
-    top: 50%;
-    left: 50%;
-    justify-content: space-between;
-    transform: translate(-50%, -50%);
-    box-shadow:
-      0 20px 40px rgba(0, 0, 0, 0.15),
-      0 0 0 1px rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-}
-
 .taskAdderContainer h3 {
   color: white;
   font-size: 1.8rem;
@@ -168,4 +144,28 @@
   right: 0px;
   top: 0px;
   border: none;
+}
+
+@media (max-width: 500px) {
+  .taskAdderContainer {
+    width: 300px;
+    min-height: 280px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(135deg, #878a97 0%, #295232 100%);
+    border-radius: 20px;
+    position: fixed;
+    z-index: 9999;
+    top: 50%;
+    left: 50%;
+    justify-content: space-between;
+    transform: translate(-50%, -50%);
+    box-shadow:
+      0 20px 40px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
 }

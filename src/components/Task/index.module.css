@@ -82,7 +82,7 @@
 .checkbox {
   scale: 1.1;
   flex-shrink: 0;
-  margin-left: 25px;
+  margin-left: 5px;
   order: 1;
 }
 
@@ -214,4 +214,56 @@
 
 .taskContainer.completed::before {
   background: linear-gradient(to bottom, #6c757d, #adb5bd);
+}
+
+@media (max-width: 768px) {
+  .taskContainer {
+    height: auto;
+    min-height: 7dvh;
+    padding: 8px 12px 8px 8px;
+    gap: 8px;
+    display: grid !important;
+    grid-template-columns: auto 1fr auto auto;
+    grid-template-areas: "checkbox text time buttons";
+    align-items: center;
+  }
+
+  .checkbox {
+    grid-area: checkbox;
+    margin-left: 7px !important;
+    scale: 1;
+  }
+
+  .textContent {
+    grid-area: text;
+    width: 100% !important;
+    min-height: 30px;
+    margin: 0 2px !important;
+    flex: none !important;
+  }
+
+  .timeContainer {
+    grid-area: time;
+    margin: 0 !important;
+    padding: 0 8px !important;
+    justify-self: end;
+    white-space: nowrap;
+    min-width: auto !important;
+    font-size: 12px;
+  }
+
+  .controlButtons {
+    width: 50px;
+    grid-area: buttons;
+    margin: 0 !important;
+    justify-self: end;
+    margin-right: 0 !important;
+    gap: 6px;
+  }
+  .deleteIcon,
+  .createIcon,
+  .saveEditIcon {
+    font-size: 18px;
+    padding: 2px;
+  }
 }

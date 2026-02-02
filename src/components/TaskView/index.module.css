@@ -9,19 +9,6 @@
   padding: 10px;
 }
 
-@media (max-width: 500px) {
-  .taskViewContainer {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: center;
-    border-radius: 16px;
-    padding: 10px;
-  }
-}
-
 .errorAnimation {
   border: 2px solid red;
   animation: vibrate 0.3s linear infinite;
@@ -40,5 +27,18 @@
   }
   75% {
     transform: translateX(3px);
+  }
+}
+
+@media (max-width: 500px) {
+  .taskViewContainer {
+    width: 92%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    border-radius: 16px;
+    padding: 10px;
   }
 }
