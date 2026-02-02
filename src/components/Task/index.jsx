@@ -56,12 +56,15 @@ export const Task = memo(({ id, value, date, isCompleted, currentList }) => {
   }, [dispatch, editValue, id, value]);
 
   const handleKeyDown = useCallback(
-    (e) => {
-      if (e.key === "Enter") {
-        handleSaveEdit();
-      } else if (e.key === "Escape") {
-        setIsEdit(false);
-        setEditValue(value);
+    ({ key }) => {
+      switch (key) {
+        case "Enter":
+          handleSaveEdit();
+          break;
+        case "Escape":
+          setIsEdit(false);
+          setEditValue(value);
+          break;
       }
     },
     [handleSaveEdit, value],

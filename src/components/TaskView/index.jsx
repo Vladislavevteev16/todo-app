@@ -5,7 +5,7 @@ import { TasksToolbar } from "../TasksToolbar";
 import { TaskAdder } from "../TaskAdder";
 import { TaskList } from "../TaskList";
 import { EmptyTasks } from "../EmptyTasks";
-import { SortSelect } from "../SortSelect";
+import { SortSelect } from "../SortableSelect";
 
 import { actions } from "../../actions";
 
