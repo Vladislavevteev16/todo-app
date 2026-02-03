@@ -2,6 +2,8 @@ import { useEffect } from "react";
 
 import { Button } from "../../shared/Button";
 
+import { KEY_CODES } from "../../constants";
+
 import style from "./index.module.css";
 
 export const TaskAdder = ({
@@ -16,7 +18,7 @@ export const TaskAdder = ({
   }, [ref]);
 
   const handleKeyDown = ({ key }) => {
-    if (key === "Enter") {
+    if (key === KEY_CODES.ENTER) {
       handleAddTask();
     }
   };

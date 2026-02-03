@@ -1,24 +1,24 @@
-import { actionTypes } from "../reducer";
+import { ACTION_TYPES } from "../reducer";
 
 export const actions = {
-  addTask: (payload) => ({ type: actionTypes.ADD_TASK, payload }),
+  addTask: (payload) => ({ type: ACTION_TYPES.ADD_TASK, payload }),
   removeTask: (payload) => ({
-    type: actionTypes.REMOVE_TASK,
+    type: ACTION_TYPES.REMOVE_TASK,
     payload,
   }),
   todoToggleCompleted: (id, isCompleted) => ({
-    type: actionTypes.TODO_TOGGLE_COMPLETED,
+    type: ACTION_TYPES.TODO_TOGGLE_COMPLETED,
     payload: { id, isCompleted },
   }),
   todosUpdateCompletedFilter: () => ({
-    type: actionTypes.TODOS_UPDATE_COMPLETED_FILTER,
+    type: ACTION_TYPES.TODOS_UPDATE_COMPLETED_FILTER,
   }),
   setNewest: (type) => ({ type }),
   removeCompletedTasks: () => ({
-    type: actionTypes.REMOVE_COMPLETED_TASKS,
+    type: ACTION_TYPES.REMOVE_COMPLETED_TASKS,
   }),
   createTaskValue: (id, text) => ({
-    type: actionTypes.CREATE_TASK_VALUE,
+    type: ACTION_TYPES.CREATE_TASK_VALUE,
     payload: { id, text },
   }),
 };

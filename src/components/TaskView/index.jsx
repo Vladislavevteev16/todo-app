@@ -5,9 +5,11 @@ import { TasksToolbar } from "../TasksToolbar";
 import { TaskAdder } from "../TaskAdder";
 import { TaskList } from "../TaskList";
 import { EmptyTasks } from "../EmptyTasks";
-import { SortSelect } from "../SortableSelect";
+import { SortableSelect } from "../SortableSelect";
 
 import { actions } from "../../actions";
+
+import { FILTER_TYPES } from "../../constants";
 
 import { useTodos } from "../../hooks/useTodos";
 import { useDispatch } from "../../hooks/useDispatch";
@@ -43,7 +45,7 @@ export const TaskView = () => {
     const trimmedText = taskText.trim();
 
     if (trimmedText === "") {
-      triggerErrorAnimation(inputRef, style.errorAnimation);
+      triggerErrorAnimation(inputRef.current, style.errorAnimation);
       return;
     }
 
@@ -53,7 +55,7 @@ export const TaskView = () => {
 
     setTaskText("");
     setIsAddingTask(false);
-    setCurrentList("todosAll");
+    setCurrentList(FILTER_TYPES.ALL);
   }, [taskText, dispatch, setIsAddingTask, setTaskText, setCurrentList]);
 
   const currentTodos = useMemo(() => todos[currentList], [currentList, todos]);
@@ -81,7 +83,7 @@ export const TaskView = () => {
       ) : (
         <EmptyTasks currentList={currentList} />
       )}
-      <SortSelect currentList={currentList} />
+      <SortableSelect currentList={currentList} />
     </div>
   );
 };

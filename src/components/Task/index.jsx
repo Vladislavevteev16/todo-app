@@ -2,6 +2,8 @@ import { memo, useRef, useState, useEffect, useCallback, useMemo } from "react";
 
 import { useDispatch } from "../../hooks/useDispatch";
 
+import { FILTER_TYPES, KEY_CODES } from "../../constants";
+
 import { actions } from "../../actions";
 
 import { Checkbox } from "antd";
@@ -55,32 +57,26 @@ export const Task = memo(({ id, value, date, isCompleted, currentList }) => {
     setIsEdit(false);
   }, [dispatch, editValue, id, value]);
 
-  const handleKeyDown = useCallback(
-    ({ key }) => {
-      switch (key) {
-        case "Enter":
-          handleSaveEdit();
-          break;
-        case "Escape":
-          setIsEdit(false);
-          setEditValue(value);
-          break;
-      }
-    },
-    [handleSaveEdit, value],
-  );
+  const handleKeyDown = ({ key }) => {
+    switch (key) {
+      case KEY_CODES.ENTER:
+        handleSaveEdit();
+        break;
+      case KEY_CODES.ESCAPE:
+        setIsEdit(false);
+        setEditValue(value);
+        break;
+    }
+  };
 
-  const handleChangeIsCompleted = useCallback(
-    ({ target: { checked } }) => {
-      dispatch(actions.todoToggleCompleted(id, checked));
-    },
-    [dispatch, id],
-  );
+  const handleChangeIsCompleted = ({ target: { checked } }) =>
+    dispatch(actions.todoToggleCompleted(id, checked));
 
-  const handleRemoveTask = useCallback(
-    () => dispatch(actions.removeTask(id)),
-    [dispatch, id],
-  );
+  const handleRemoveTask = () => dispatch(actions.removeTask(id));
+
+  const handleStartIsEditValue = () => setIsEdit(true);
+
+  const handleChangeEditValue = ({ target: { value } }) => setEditValue(value);
 
   return (
     <div
@@ -97,7 +93,7 @@ export const Task = memo(({ id, value, date, isCompleted, currentList }) => {
             ref={inputRef}
             type="text"
             value={editValue}
-            onChange={({ target: { value } }) => setEditValue(value)}
+            onChange={handleChangeEditValue}
             onKeyDown={handleKeyDown}
             onBlur={handleSaveEdit}
           />
@@ -109,14 +105,14 @@ export const Task = memo(({ id, value, date, isCompleted, currentList }) => {
         <ClockCircleOutlined />
         <p>{formattedDate}</p>
       </div>
-      {currentList === "todosAll" ? (
+      {currentList === FILTER_TYPES.ALL ? (
         <div className={style.controlButtons}>
           {isEdit ? (
             <CheckOutlined className={style.saveEditIcon} />
           ) : (
             <EditOutlined
               className={style.createIcon}
-              onClick={() => setIsEdit(true)}
+              onClick={handleStartIsEditValue}
             />
           )}
 

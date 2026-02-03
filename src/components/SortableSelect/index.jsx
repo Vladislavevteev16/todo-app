@@ -1,22 +1,24 @@
-import { useCallback } from "react";
+import { useCallback, memo } from "react";
 
 import { Select, ConfigProvider } from "antd";
 
 import { useTodos } from "../../hooks/useTodos";
 import { useDispatch } from "../../hooks/useDispatch";
 
+import { SORTABLE_OPTIONS } from "../../constants";
+import { FILTER_TYPES } from "../../constants";
+
 import { actions } from "../../actions";
+
+const OPTIONS_STYLE = {
+  optionFontSize: 10,
+  optionHeight: 10,
+  optionPadding: "10px 16px",
+};
 
 import style from "./index.module.css";
 
-const OPTIONS = [
-  { value: "NEWEST", label: "Сначала новые" },
-  { value: "OLDEST", label: "Сначала старые" },
-  { value: "NAME_ASC", label: "По имени (А-Я)" },
-  { value: "NAME_DESC", label: "По имени (Я-А)" },
-];
-
-export const SortSelect = ({ currentList }) => {
+export const SortableSelect = memo(({ currentList }) => {
   const todos = useTodos();
   const dispatch = useDispatch();
 
@@ -27,25 +29,21 @@ export const SortSelect = ({ currentList }) => {
 
   return (
     todos.todosAll.length > 0 &&
-    currentList !== "completedTodos" && (
+    currentList !== FILTER_TYPES.COMPLETED && (
       <ConfigProvider
         theme={{
           components: {
-            Select: {
-              optionFontSize: 10,
-              optionHeight: 10,
-              optionPadding: "10px 16px",
-            },
+            Select: OPTIONS_STYLE,
           },
         }}
       >
         <Select
           className={style.select}
-          defaultValue="NEWEST"
+          defaultValue={SORTABLE_OPTIONS[0].label}
           onChange={handleChangeSort}
-          options={OPTIONS}
+          options={SORTABLE_OPTIONS}
         />
       </ConfigProvider>
     )
   );
-};
+});

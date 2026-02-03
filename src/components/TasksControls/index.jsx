@@ -4,14 +4,11 @@ import { Button } from "../../shared/Button";
 
 import { actions } from "../../actions";
 
+import { FILTER_OPTIONS } from "../../constants";
+
 import { useDispatch } from "../../hooks/useDispatch";
 
 import style from "./index.module.css";
-
-const filterButtons = [
-  { title: "All", filterType: "todosAll" },
-  { title: "Completed", filterType: "completedTodos" },
-];
 
 export const TaskControls = ({ currentList, setCurrentList }) => {
   const dispatch = useDispatch();
@@ -26,7 +23,7 @@ export const TaskControls = ({ currentList, setCurrentList }) => {
 
   return (
     <div className={style.taskControlsContainer}>
-      {filterButtons.map(({ title, filterType }, index) => (
+      {FILTER_OPTIONS.map(({ title, filterType }, index) => (
         <Button
           onClick={() => {
             if (index == 0) {

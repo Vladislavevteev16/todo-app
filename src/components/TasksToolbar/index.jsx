@@ -1,5 +1,7 @@
 import { Button } from "../../shared/Button";
 
+import { FILTER_TYPES } from "../../constants";
+
 import style from "./index.module.css";
 
 export const TasksToolbar = ({
@@ -16,7 +18,7 @@ export const TasksToolbar = ({
     <div className={style.tasksToolbarContainer}>
       <h2>Tasks</h2>
       <div className={style.buttonContainer}>
-        {!!todosCompletedLength && currentList === "todosAll" && (
+        {!!todosCompletedLength && currentList === FILTER_TYPES.ALL && (
           <Button onClick={handleRemoveAllTasks} className={style.buttonRemove}>
             Remove tasks ({todosCompletedLength})
           </Button>

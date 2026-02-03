@@ -1,6 +1,6 @@
 import { v4 as uuid } from "uuid";
 
-export const actionTypes = {
+export const ACTION_TYPES = {
   ADD_TASK: "ADD_TASK",
   REMOVE_TASK: "REMOVE_TASK",
   TODO_TOGGLE_COMPLETED: "TODO_TOGGLE_COMPLETED",
@@ -15,7 +15,7 @@ export const actionTypes = {
 
 export const reducer = (state, action) => {
   switch (action.type) {
-    case actionTypes.ADD_TASK:
+    case ACTION_TYPES.ADD_TASK:
       return {
         ...state,
         todosAll: [
@@ -28,13 +28,13 @@ export const reducer = (state, action) => {
           ...state.todosAll,
         ],
       };
-    case actionTypes.REMOVE_TASK:
+    case ACTION_TYPES.REMOVE_TASK:
       return {
         ...state,
         todosAll: state.todosAll.filter((task) => task.id !== action.payload),
       };
 
-    case actionTypes.TODO_TOGGLE_COMPLETED:
+    case ACTION_TYPES.TODO_TOGGLE_COMPLETED:
       return {
         ...state,
         todosAll: state.todosAll.map((todo) => {
@@ -43,18 +43,18 @@ export const reducer = (state, action) => {
             : todo;
         }),
       };
-    case actionTypes.TODOS_UPDATE_COMPLETED_FILTER:
+    case ACTION_TYPES.TODOS_UPDATE_COMPLETED_FILTER:
       return {
         ...state,
         completedTodos: state.todosAll.filter((todo) => todo.isCompleted),
       };
-    case actionTypes.REMOVE_COMPLETED_TASKS:
+    case ACTION_TYPES.REMOVE_COMPLETED_TASKS:
       return {
         ...state,
         todosAll: state.todosAll.filter((todo) => !todo.isCompleted),
       };
 
-    case actionTypes.CREATE_TASK_VALUE:
+    case ACTION_TYPES.CREATE_TASK_VALUE:
       return {
         ...state,
         todosAll: state.todosAll.map((todo) => {
@@ -64,25 +64,25 @@ export const reducer = (state, action) => {
           return todo;
         }),
       };
-    case actionTypes.NEWEST:
+    case ACTION_TYPES.NEWEST:
       return {
         ...state,
         todosAll: [...state.todosAll].sort((a, b) => b.createdAt - a.createdAt),
       };
 
-    case actionTypes.OLDEST:
+    case ACTION_TYPES.OLDEST:
       return {
         ...state,
         todosAll: [...state.todosAll].sort((a, b) => a.createdAt - b.createdAt),
       };
-    case actionTypes.NAME_ASC:
+    case ACTION_TYPES.NAME_ASC:
       return {
         ...state,
         todosAll: [...state.todosAll].sort((a, b) =>
           a.text.localeCompare(b.text, "ru", { sensitivity: "base" }),
         ),
       };
-    case actionTypes.NAME_DESC:
+    case ACTION_TYPES.NAME_DESC:
       return {
         ...state,
         todosAll: [...state.todosAll].sort((a, b) =>

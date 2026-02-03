@@ -1,6 +1,6 @@
 const DELAY = 600;
 
-export const triggerErrorAnimation = ({ current }, style) => {
+export const triggerErrorAnimation = (current, style) => {
   let timerId;
 
   if (!current) {
