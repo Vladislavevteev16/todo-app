@@ -1,4 +1,4 @@
-import { ACTION_TYPES } from "../reducer";
+import { ACTION_TYPES } from "../constants";
 
 export const actions = {
   addTask: (payload) => ({ type: ACTION_TYPES.ADD_TASK, payload }),

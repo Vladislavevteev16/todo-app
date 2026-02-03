@@ -1,17 +1,6 @@
 import { v4 as uuid } from "uuid";
 
-export const ACTION_TYPES = {
-  ADD_TASK: "ADD_TASK",
-  REMOVE_TASK: "REMOVE_TASK",
-  TODO_TOGGLE_COMPLETED: "TODO_TOGGLE_COMPLETED",
-  TODOS_UPDATE_COMPLETED_FILTER: "TODOS_UPDATE_COMPLETED_FILTER",
-  REMOVE_COMPLETED_TASKS: "REMOVE_COMPLETED_TASKS",
-  CREATE_TASK_VALUE: "CREATE_TASK_VALUE",
-  NEWEST: "NEWEST",
-  OLDEST: "OLDEST",
-  NAME_ASC: "NAME_ASC",
-  NAME_DESC: "NAME_DESC",
-};
+import { ACTION_TYPES } from "../constants";
 
 export const reducer = (state, action) => {
   switch (action.type) {
