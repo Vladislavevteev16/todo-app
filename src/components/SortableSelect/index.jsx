@@ -8,8 +8,6 @@ import { useDispatch } from "../../hooks/useDispatch";
 import { SORTABLE_OPTIONS } from "../../constants";
 import { FILTER_TYPES } from "../../constants";
 
-import { actions } from "../../actions";
-
 const OPTIONS_STYLE = {
   optionFontSize: 10,
   optionHeight: 10,
@@ -23,7 +21,7 @@ export const SortableSelect = memo(({ currentList }) => {
   const dispatch = useDispatch();
 
   const handleChangeSort = useCallback(
-    (value) => dispatch(actions.setNewest(value)),
+    (value) => dispatch({ type: value }),
     [dispatch],
   );
 

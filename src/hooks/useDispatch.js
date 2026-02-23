@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { DispatchContext } from "../context";
+import { DispatchContext } from "../context/todosContext";
 
 export const useDispatch = () => {
   const context = useContext(DispatchContext);

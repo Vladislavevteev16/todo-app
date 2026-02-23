@@ -2,7 +2,7 @@ import { useCallback } from "react";
 
 import { Button } from "../../shared/Button";
 
-import { actions } from "../../actions";
+import { ACTION_TYPES } from "../../constants";
 
 import { FILTER_OPTIONS } from "../../constants";
 
@@ -15,7 +15,9 @@ export const TaskControls = ({ currentList, setCurrentList }) => {
 
   const handleShowTodosCompleted = useCallback(
     (filterType) => {
-      dispatch(actions.todosUpdateCompletedFilter());
+      dispatch({
+        type: ACTION_TYPES.TODOS_UPDATE_COMPLETED_FILTER,
+      });
       setCurrentList(filterType);
     },
     [dispatch, setCurrentList],
@@ -23,15 +25,15 @@ export const TaskControls = ({ currentList, setCurrentList }) => {
 
   return (
     <div className={style.taskControlsContainer}>
-      {FILTER_OPTIONS.map(({ title, filterType }, index) => (
+      {FILTER_OPTIONS.map(({ id, title, filterType }) => (
         <Button
           onClick={() => {
-            if (index == 0) {
+            if (id == 0) {
               setCurrentList(filterType);
             }
             handleShowTodosCompleted(filterType);
           }}
-          key={index}
+          key={id}
           className={`${style.button} ${currentList === filterType ? style.buttonActive : ""}`}
         >
           {title}

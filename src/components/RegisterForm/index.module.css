@@ -1,0 +1,215 @@
+.registerForm {
+  width: 480px;
+  min-height: 520px;
+  background: linear-gradient(145deg, #173a32, #9698a8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  padding: 30px 40px;
+  box-shadow:
+    0 20px 60px rgba(56, 66, 157, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 30px;
+}
+
+.registerForm h1 {
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin: 0 0 20px 0;
+  text-align: center;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  padding-bottom: 15px;
+  font-family: "Quicksand", sans-serif;
+  letter-spacing: 0.5px;
+}
+
+.registerForm h1::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #ff6b9d,
+    #667eea,
+    transparent
+  );
+  border-radius: 2px;
+}
+
+.formItem {
+  width: 100% !important;
+  margin-bottom: 10px !important;
+  min-height: 20px !important;
+}
+
+.registerForm :global(.ant-input),
+.registerForm :global(.ant-input-password),
+.registerForm :global(.ant-input-number) {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 8px !important;
+  color: white !important;
+  padding: 8px 14px !important;
+  font-size: 13px !important;
+  transition: all 0.2s ease !important;
+  backdrop-filter: blur(10px);
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.1),
+    0 1px 4px rgba(0, 0, 0, 0.1);
+  height: 30px !important;
+  width: 100% !important;
+}
+
+.registerForm :global(.ant-input)::placeholder,
+.registerForm :global(.ant-input-password)::placeholder,
+.registerForm :global(.ant-input-number)::placeholder {
+  color: rgba(255, 255, 255, 0.5) !important;
+  font-size: 13px !important;
+}
+
+.registerForm :global(.ant-input:focus),
+.registerForm :global(.ant-input-focused),
+.registerForm :global(.ant-input-password:focus),
+.registerForm :global(.ant-input-password-focused),
+.registerForm :global(.ant-input-number .ant-input-number-input:focus) {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border-color: #ff6b9d !important;
+  box-shadow:
+    0 0 0 2px rgba(255, 107, 157, 0.2),
+    inset 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  transform: translateY(-1px);
+}
+
+.registerForm :global(.ant-form-item-label > label) {
+  color: rgba(255, 255, 255, 0.95) !important;
+  font-weight: 600;
+  font-size: 12px !important;
+  font-family: "Quicksand", sans-serif;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  letter-spacing: 0.3px;
+  height: 20px !important;
+  line-height: 20px !important;
+}
+
+.registerForm :global(.ant-select-dropdown) {
+  background: rgba(45, 55, 138, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 8px !important;
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  padding: 4px !important;
+}
+
+.registerForm :global(.ant-select-arrow) {
+  color: rgba(124, 107, 107, 0.7) !important;
+  font-size: 12px !important;
+}
+.registerForm :global(.ant-form-item-explain-error) {
+  font-size: 10px !important;
+  color: #a43481 !important;
+  font-weight: 500;
+  padding: 2px 0 0 2px !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  min-height: 14px !important;
+  line-height: 1.2 !important;
+}
+
+.buttonItem {
+  margin-top: 5px !important;
+  margin-bottom: 0 !important;
+}
+
+.button {
+  width: 240px !important;
+  height: 38px !important;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  font-weight: 700;
+  border: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.5px;
+  box-shadow:
+    0 3px 12px rgba(102, 126, 234, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  font-family: "Quicksand", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 20px rgba(102, 126, 234, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.button:disabled {
+  opacity: 0.5 !important;
+  transform: none !important;
+}
+
+.button:disabled:hover {
+  transform: none !important;
+  box-shadow:
+    0 3px 12px rgba(102, 126, 234, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+.buttonLogin {
+  position: absolute;
+  right: 1%;
+  top: 4%;
+  width: 100px;
+  height: 38px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  border: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  box-shadow:
+    0 3px 12px rgba(102, 126, 234, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  font-family: "Quicksand", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonLogin:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 6px 20px rgba(102, 126, 234, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.loginImage {
+  width: 18px;
+  margin-right: 13px;
+}
