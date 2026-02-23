@@ -1,12 +1,13 @@
+import { Route, Routes, Navigate } from "react-router";
+
 import { TaskView } from "./components/TaskView";
 import { Layout } from "./components/Layout";
+import { LoginForm } from "./components/LoginForm";
 import { RegisterForm } from "./components/RegisterForm";
 import { PublicRoute } from "./components/PublicRoute";
-import "./App.css";
-
-import { Route, Routes, Navigate } from "react-router";
 import { ProtectedRoute } from "./components/ProtectedRoute";
-import { LoginForm } from "./components/LoginForm";
+
+import "./App.css";
 
 function App() {
   return (
