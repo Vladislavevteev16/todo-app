@@ -1,7 +1,9 @@
 import { useEffect } from "react";
 
 import { Button } from "../../shared/Button";
+import { Loader } from "../../shared/Loader";
 
+import { useTodos } from "../../hooks/useTodos";
 import { KEY_CODES } from "../../constants";
 
 import style from "./index.module.css";
@@ -13,6 +15,12 @@ export const TaskAdder = ({
   taskText,
   handleAddTask,
 }) => {
+  const {
+    loadingStates: { isAddTaskLoading },
+    error,
+    message,
+  } = useTodos();
+
   useEffect(() => {
     ref.current.focus();
   }, [ref]);
@@ -38,8 +46,13 @@ export const TaskAdder = ({
         type="text"
         placeholder="Введите текст"
       />
+      {error ? <h4>{message}</h4> : null}
       <Button onClick={handleAddTask} className={style.button}>
-        Add new task
+        {isAddTaskLoading ? (
+          <Loader size={{ width: 30, height: 30 }} />
+        ) : (
+          "Add new task"
+        )}
       </Button>
     </div>
   );

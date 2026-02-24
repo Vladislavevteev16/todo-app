@@ -8,8 +8,6 @@ import { useDispatch } from "../../hooks/useDispatch";
 import { SORTABLE_OPTIONS } from "../../constants";
 import { FILTER_TYPES } from "../../constants";
 
-import { actions } from "../../actions";
-
 const OPTIONS_STYLE = {
   optionFontSize: 10,
   optionHeight: 10,
@@ -19,31 +17,32 @@ const OPTIONS_STYLE = {
 import style from "./index.module.css";
 
 export const SortableSelect = memo(({ currentList }) => {
-  const todos = useTodos();
+  const { todosAll } = useTodos();
   const dispatch = useDispatch();
 
   const handleChangeSort = useCallback(
-    (value) => dispatch(actions.setNewest(value)),
+    (value) => dispatch({ type: value }),
     [dispatch],
   );
 
+  if (todosAll.length === 0 && currentList !== FILTER_TYPES.COMPLETED) {
+    return null;
+  }
+
   return (
-    todos.todosAll.length > 0 &&
-    currentList !== FILTER_TYPES.COMPLETED && (
-      <ConfigProvider
-        theme={{
-          components: {
-            Select: OPTIONS_STYLE,
-          },
-        }}
-      >
-        <Select
-          className={style.select}
-          defaultValue={SORTABLE_OPTIONS[0].label}
-          onChange={handleChangeSort}
-          options={SORTABLE_OPTIONS}
-        />
-      </ConfigProvider>
-    )
+    <ConfigProvider
+      theme={{
+        components: {
+          Select: OPTIONS_STYLE,
+        },
+      }}
+    >
+      <Select
+        className={style.select}
+        defaultValue={SORTABLE_OPTIONS[0].label}
+        onChange={handleChangeSort}
+        options={SORTABLE_OPTIONS}
+      />
+    </ConfigProvider>
   );
 });

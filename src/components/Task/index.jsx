@@ -1,10 +1,11 @@
 import { memo, useRef, useState, useEffect, useCallback, useMemo } from "react";
 
+import { Loader } from "../../shared/Loader";
+import { useTodos } from "../../hooks/useTodos";
 import { useDispatch } from "../../hooks/useDispatch";
+import { todosService } from "../../services/todosService";
 
 import { FILTER_TYPES, KEY_CODES } from "../../constants";
-
-import { actions } from "../../actions";
 
 import { Checkbox } from "antd";
 import {
@@ -27,6 +28,14 @@ export const Task = memo(({ id, value, date, isCompleted, currentList }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editValue, setEditValue] = useState(value);
 
+  const {
+    loadingStates: {
+      isRemoveTaskLoading,
+      isTaskToggleLoading,
+      isTaskChangeValueLoading,
+    },
+  } = useTodos();
+
   const inputRef = useRef(null);
 
   const formattedDate = useMemo(() => dayjs(date).format("DD MMMM"), [date]);
@@ -40,27 +49,31 @@ export const Task = memo(({ id, value, date, isCompleted, currentList }) => {
     }
   }, [isEdit]);
 
-  const handleSaveEdit = useCallback(() => {
-    const trimmedText = editValue.trim();
+  const handleSaveEdit = useCallback(async () => {
+    try {
+      const trimmedText = editValue.trim();
 
-    if (trimmedText === "" || trimmedText === value) {
-      setIsEdit(false);
-      return;
-    }
+      if (trimmedText === "" || trimmedText === value) {
+        setIsEdit(false);
+        return;
+      }
 
-    dispatch(
-      actions.createTaskValue(
+      todosService.updateTaskTitle(
+        dispatch,
         id,
         trimmedText[0].toUpperCase() + trimmedText.slice(1),
-      ),
-    );
-    setIsEdit(false);
+      );
+
+      setIsEdit(false);
+    } catch (e) {
+      console.error(e);
+    }
   }, [dispatch, editValue, id, value]);
 
-  const handleKeyDown = ({ key }) => {
+  const handleKeyDown = async ({ key }) => {
     switch (key) {
       case KEY_CODES.ENTER:
-        handleSaveEdit();
+        await handleSaveEdit();
         break;
       case KEY_CODES.ESCAPE:
         setIsEdit(false);
@@ -69,10 +82,21 @@ export const Task = memo(({ id, value, date, isCompleted, currentList }) => {
     }
   };
 
-  const handleChangeIsCompleted = ({ target: { checked } }) =>
-    dispatch(actions.todoToggleCompleted(id, checked));
+  const handleChangeIsCompleted = async () => {
+    try {
+      await todosService.taskToggleCompleted(dispatch, id);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
-  const handleRemoveTask = () => dispatch(actions.removeTask(id));
+  const handleRemoveTask = async () => {
+    try {
+      await todosService.removeTask(dispatch, id);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   const handleStartIsEditValue = () => setIsEdit(true);
 
@@ -82,11 +106,18 @@ export const Task = memo(({ id, value, date, isCompleted, currentList }) => {
     <div
       className={`${style.taskContainer} ${isCompleted ? style.completed : ""}`}
     >
-      <Checkbox
-        checked={isCompleted}
-        onClick={handleChangeIsCompleted}
-        className={style.checkbox}
-      />
+      <div className={style.checkboxWrapper}>
+        {isTaskToggleLoading ? (
+          <Loader size={{ width: 23, height: 23 }} />
+        ) : (
+          <Checkbox
+            checked={isCompleted}
+            onClick={handleChangeIsCompleted}
+            className={style.checkbox}
+          />
+        )}
+      </div>
+
       <div className={style.textContent}>
         {isEdit ? (
           <input
@@ -110,16 +141,28 @@ export const Task = memo(({ id, value, date, isCompleted, currentList }) => {
           {isEdit ? (
             <CheckOutlined className={style.saveEditIcon} />
           ) : (
-            <EditOutlined
-              className={style.createIcon}
-              onClick={handleStartIsEditValue}
-            />
+            <div className={style.createIconWrapper}>
+              {isTaskChangeValueLoading ? (
+                <Loader size={{ width: 23, height: 23 }} />
+              ) : (
+                <EditOutlined
+                  className={style.createIcon}
+                  onClick={handleStartIsEditValue}
+                />
+              )}
+            </div>
           )}
 
-          <CloseSquareOutlined
-            onClick={handleRemoveTask}
-            className={style.deleteIcon}
-          />
+          <div className={style.deleteIconWrapper}>
+            {isRemoveTaskLoading ? (
+              <Loader size={{ width: 23, height: 23 }} />
+            ) : (
+              <CloseSquareOutlined
+                onClick={handleRemoveTask}
+                className={style.deleteIcon}
+              />
+            )}
+          </div>
         </div>
       ) : null}
     </div>

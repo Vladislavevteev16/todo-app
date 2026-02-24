@@ -1,4 +1,5 @@
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useMemo, useRef, useEffect } from "react";
+import { useNavigate } from "react-router";
 
 import { TaskControls } from "../TasksControls";
 import { TasksToolbar } from "../TasksToolbar";
@@ -6,17 +7,22 @@ import { TaskAdder } from "../TaskAdder";
 import { TaskList } from "../TaskList";
 import { EmptyTasks } from "../EmptyTasks";
 import { SortableSelect } from "../SortableSelect";
-
-import { actions } from "../../actions";
+import { Button } from "../../shared/Button";
 
 import { FILTER_TYPES } from "../../constants";
 
 import { useTodos } from "../../hooks/useTodos";
 import { useDispatch } from "../../hooks/useDispatch";
+import { useAuth } from "../../hooks/useAuth";
 
-import { useTaskAdding } from "../../hooks/useTaskAdding";
+import { useTaskAdding } from "../../hooks/useTaskCreate";
 
 import { triggerErrorAnimation } from "../../utils/triggerErrorAnimation";
+
+import { todosService } from "../../services/todosService";
+import { authService } from "../../services/authService";
+
+import logoutImage from "../../assets/logout.svg";
 
 import style from "./index.module.css";
 
@@ -37,26 +43,50 @@ export const TaskView = () => {
 
   const todos = useTodos();
 
+  const { todosAll } = todos;
+
   const dispatch = useDispatch();
 
-  const handleRemoveAllTasks = () => dispatch(actions.removeCompletedTasks());
+  const { dispatch: authDispatch } = useAuth();
 
-  const handleAddTask = useCallback(() => {
-    const trimmedText = taskText.trim();
+  const navigate = useNavigate();
 
-    if (trimmedText === "") {
-      triggerErrorAnimation(inputRef.current, style.errorAnimation);
-      return;
+  const handleRemoveAllTasks = async () => {
+    try {
+      await todosService.removeTaskCompleted(dispatch, todosAll);
+    } catch (e) {
+      console.error(e);
     }
+  };
 
-    dispatch(
-      actions.addTask(trimmedText[0].toUpperCase() + trimmedText.slice(1)),
-    );
+  const handleAddTask = useCallback(async () => {
+    try {
+      const trimmedText = taskText.trim();
 
-    setTaskText("");
-    setIsAddingTask(false);
-    setCurrentList(FILTER_TYPES.ALL);
+      if (trimmedText === "") {
+        triggerErrorAnimation(inputRef.current, style.errorAnimation);
+        return;
+      }
+      const formattedText = trimmedText[0].toUpperCase() + trimmedText.slice(1);
+
+      await todosService.addTask(dispatch, formattedText);
+
+      setTaskText("");
+      setIsAddingTask(false);
+      setCurrentList(FILTER_TYPES.ALL);
+    } catch (error) {
+      console.error(error);
+    }
   }, [taskText, dispatch, setIsAddingTask, setTaskText, setCurrentList]);
+
+  useEffect(() => {
+    todosService.getTasks(dispatch);
+  }, [dispatch]);
+
+  const handleLogout = () => {
+    authService.logout(authDispatch);
+    navigate("/login");
+  };
 
   const currentTodos = useMemo(() => todos[currentList], [currentList, todos]);
 
@@ -84,6 +114,10 @@ export const TaskView = () => {
         <EmptyTasks currentList={currentList} />
       )}
       <SortableSelect currentList={currentList} />
+      <Button onClick={handleLogout} className={style.buttonLogout}>
+        <img className={style.logoutImage} src={logoutImage} alt="Logout"></img>
+        Logout
+      </Button>
     </div>
   );
 };

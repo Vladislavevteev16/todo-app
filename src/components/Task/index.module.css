@@ -79,11 +79,20 @@
   min-width: 120px;
 }
 
-.checkbox {
-  scale: 1.1;
-  flex-shrink: 0;
+.checkboxWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 23px;
+  height: 23px;
   margin-left: 5px;
   order: 1;
+  flex-shrink: 0;
+}
+
+.checkbox {
+  flex-shrink: 0;
+  margin: 0;
 }
 
 .checkbox :global(.ant-checkbox .ant-checkbox-input) {
@@ -253,17 +262,46 @@
   }
 
   .controlButtons {
-    width: 50px;
+    width: 61px;
     grid-area: buttons;
     margin: 0 !important;
     justify-self: end;
     margin-right: 0 !important;
     gap: 6px;
   }
-  .deleteIcon,
   .createIcon,
   .saveEditIcon {
     font-size: 18px;
     padding: 2px;
   }
+}
+
+.deleteIconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  margin-left: 8px;
+  order: 2;
+}
+
+.deleteIcon {
+  font-size: 23px;
+  padding: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.createIconWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
 }

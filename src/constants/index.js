@@ -1,4 +1,18 @@
 export const ACTION_TYPES = {
+  FETCH_START_ALL_TASKS: " FETCH_START_ALL_TASKS",
+  FETCH_START_ADD_TASK: "FETCH_START_ADD_TASK",
+  FETCH_START_REMOVE_TASK: "FETCH_START_REMOVE_TASK",
+  FETCH_START_TASK_TOGGLE: "FETCH_START_TASK_TOGGLE",
+  FETCH_START_CREATE_TASK_VALUE: "FETCH_START_CREATE_TASK_VALUE",
+  FETCH_START: "FETCH_START",
+  FETCH_SUCCESS: "FETCH_SUCCESS",
+  FETCH_ERROR: "FETCH_ERROR",
+  AUTH_START: "AUTH_START",
+  AUTH_SUCCESS: "AUTH_SUCCESS",
+  AUTH_ERROR: "AUTH_ERROR",
+  AUTH_CLEAR_ERROR: "AUTH_CLEAR_ERROR",
+  AUTH_LOGOUT: "AUTH_LOGOUT",
+  GET_TASKS: " GET_TASKS",
   ADD_TASK: "ADD_TASK",
   REMOVE_TASK: "REMOVE_TASK",
   TODO_TOGGLE_COMPLETED: "TODO_TOGGLE_COMPLETED",
@@ -12,8 +26,8 @@ export const ACTION_TYPES = {
 };
 
 export const FILTER_OPTIONS = [
-  { title: "All", filterType: "todosAll" },
-  { title: "Completed", filterType: "completedTodos" },
+  { id: 0, title: "All", filterType: "todosAll" },
+  { id: 1, title: "Completed", filterType: "completedTodos" },
 ];
 
 export const FILTER_TYPES = {
