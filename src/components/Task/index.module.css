@@ -262,7 +262,7 @@
   }
 
   .controlButtons {
-    width: 50px;
+    width: 61px;
     grid-area: buttons;
     margin: 0 !important;
     justify-self: end;

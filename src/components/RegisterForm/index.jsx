@@ -15,6 +15,8 @@ import loginImage from "../../assets/login.svg";
 
 import style from "./index.module.css";
 
+const DALAY_NAVIGATE_VALUE = 1500;
+
 export const RegisterForm = () => {
   const navigate = useNavigate();
 
@@ -110,7 +112,7 @@ export const RegisterForm = () => {
           duration: 3,
         });
         reset();
-        setTimeout(() => navigate("/login"), 1500);
+        setTimeout(() => navigate("/login"), DALAY_NAVIGATE_VALUE);
       } catch (e) {
         console.error(e);
       }
@@ -148,7 +150,6 @@ export const RegisterForm = () => {
             },
           }}
         >
-          {" "}
           <Form
             onFinish={handleSubmit(handleRegisterUser)}
             layout="vertical"

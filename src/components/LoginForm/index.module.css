@@ -212,3 +212,48 @@
   width: 25px;
   margin-right: 5px;
 }
+
+@media (max-width: 768px) {
+  .loginForm {
+    width: 250px;
+    min-height: 250px;
+    background: linear-gradient(145deg, #173a32, #9698a8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 20px;
+    padding: 30px 40px;
+    box-shadow:
+      0 20px 60px rgba(56, 66, 157, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 160px;
+  }
+
+  .buttonRegistration {
+    position: absolute;
+    right: 36%;
+    top: 93%;
+    width: 100px;
+    height: 38px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 700;
+    border: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    box-shadow:
+      0 3px 12px rgba(102, 126, 234, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    font-family: "Quicksand", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

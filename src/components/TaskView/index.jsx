@@ -15,7 +15,7 @@ import { useTodos } from "../../hooks/useTodos";
 import { useDispatch } from "../../hooks/useDispatch";
 import { useAuth } from "../../hooks/useAuth";
 
-import { useTaskAdding } from "../../hooks/useTaskAdding";
+import { useTaskAdding } from "../../hooks/useTaskCreate";
 
 import { triggerErrorAnimation } from "../../utils/triggerErrorAnimation";
 

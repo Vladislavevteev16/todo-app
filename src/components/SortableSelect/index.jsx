@@ -17,7 +17,7 @@ const OPTIONS_STYLE = {
 import style from "./index.module.css";
 
 export const SortableSelect = memo(({ currentList }) => {
-  const todos = useTodos();
+  const { todosAll } = useTodos();
   const dispatch = useDispatch();
 
   const handleChangeSort = useCallback(
@@ -25,23 +25,24 @@ export const SortableSelect = memo(({ currentList }) => {
     [dispatch],
   );
 
+  if (todosAll.length === 0 && currentList !== FILTER_TYPES.COMPLETED) {
+    return null;
+  }
+
   return (
-    todos.todosAll.length > 0 &&
-    currentList !== FILTER_TYPES.COMPLETED && (
-      <ConfigProvider
-        theme={{
-          components: {
-            Select: OPTIONS_STYLE,
-          },
-        }}
-      >
-        <Select
-          className={style.select}
-          defaultValue={SORTABLE_OPTIONS[0].label}
-          onChange={handleChangeSort}
-          options={SORTABLE_OPTIONS}
-        />
-      </ConfigProvider>
-    )
+    <ConfigProvider
+      theme={{
+        components: {
+          Select: OPTIONS_STYLE,
+        },
+      }}
+    >
+      <Select
+        className={style.select}
+        defaultValue={SORTABLE_OPTIONS[0].label}
+        onChange={handleChangeSort}
+        options={SORTABLE_OPTIONS}
+      />
+    </ConfigProvider>
   );
 });
