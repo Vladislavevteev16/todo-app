@@ -230,7 +230,7 @@
     overflow: hidden;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    margin-top: 160px;
+    margin-top: 134px;
   }
 
   .buttonRegistration {
@@ -238,7 +238,7 @@
     right: 36%;
     top: 93%;
     width: 100px;
-    height: 38px;
+    height: 30px;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border-radius: 8px;
