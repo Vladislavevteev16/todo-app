@@ -1,6 +1,20 @@
-import { ACTION_TYPES } from "../constants";
+import { ACTION_TYPES } from "../../constants";
 
-export const reducer = (state, action) => {
+const initialState = {
+  todosAll: [],
+  completedTodos: [],
+  loadingStates: {
+    isAllTodosLoading: false,
+    isAddTaskLoading: false,
+    isRemoveTaskLoading: false,
+    isTaskToggleLoading: false,
+    isTaskChangeValueLoading: false,
+  },
+  error: null,
+  message: null,
+};
+
+export const todosReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTION_TYPES.FETCH_START_ALL_TASKS: {
       return {

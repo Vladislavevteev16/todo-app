@@ -1,9 +1,8 @@
 import { useEffect } from "react";
-
+import { useSelector } from "react-redux";
 import { Button } from "../../shared/Button";
 import { Loader } from "../../shared/Loader";
 
-import { useTodos } from "../../hooks/useTodos";
 import { KEY_CODES } from "../../constants";
 
 import style from "./index.module.css";
@@ -19,7 +18,7 @@ export const TaskAdder = ({
     loadingStates: { isAddTaskLoading },
     error,
     message,
-  } = useTodos();
+  } = useSelector((state) => state.todos);
 
   useEffect(() => {
     ref.current.focus();

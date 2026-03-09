@@ -1,6 +1,13 @@
-import { ACTION_TYPES } from "../constants";
+import { ACTION_TYPES } from "../../constants";
 
-export const authReducer = (state, action) => {
+const initialValue = {
+  token: localStorage.getItem("token") || null,
+  loading: false,
+  error: null,
+  message: null,
+};
+
+export const authReducer = (state = initialValue, action) => {
   switch (action.type) {
     case ACTION_TYPES.AUTH_START: {
       return { ...state, loading: true, error: null };
@@ -21,6 +28,9 @@ export const authReducer = (state, action) => {
     }
     case ACTION_TYPES.AUTH_LOGOUT: {
       return { ...state, token: null };
+    }
+    default: {
+      return state;
     }
   }
 };

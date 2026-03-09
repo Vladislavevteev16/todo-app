@@ -1,9 +1,8 @@
 import { useCallback, memo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import { Select, ConfigProvider } from "antd";
-
-import { useTodos } from "../../hooks/useTodos";
-import { useDispatch } from "../../hooks/useDispatch";
+import { getSortableValue } from "../../redux/actions/todosActions";
 
 import { SORTABLE_OPTIONS } from "../../constants";
 import { FILTER_TYPES } from "../../constants";
@@ -17,17 +16,19 @@ const OPTIONS_STYLE = {
 import style from "./index.module.css";
 
 export const SortableSelect = memo(({ currentList }) => {
-  const { todosAll } = useTodos();
+  const todosAll = useSelector((state) => state.todos.todosAll);
   const dispatch = useDispatch();
 
   const handleChangeSort = useCallback(
-    (value) => dispatch({ type: value }),
+    (value) => dispatch(getSortableValue(value)),
     [dispatch],
   );
 
-  if (todosAll.length === 0 && currentList !== FILTER_TYPES.COMPLETED) {
+  if (todosAll.length === 0) {
     return null;
   }
+
+  if (currentList === FILTER_TYPES.COMPLETED) return null;
 
   return (
     <ConfigProvider

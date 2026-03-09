@@ -1,12 +1,11 @@
 import { useCallback } from "react";
+import { useDispatch } from "react-redux";
 
 import { Button } from "../../shared/Button";
 
-import { ACTION_TYPES } from "../../constants";
+import { todosUpdateCompletedFilter } from "../../redux/actions/todosActions";
 
 import { FILTER_OPTIONS } from "../../constants";
-
-import { useDispatch } from "../../hooks/useDispatch";
 
 import style from "./index.module.css";
 
@@ -15,9 +14,7 @@ export const TaskControls = ({ currentList, setCurrentList }) => {
 
   const handleShowTodosCompleted = useCallback(
     (filterType) => {
-      dispatch({
-        type: ACTION_TYPES.TODOS_UPDATE_COMPLETED_FILTER,
-      });
+      dispatch(todosUpdateCompletedFilter());
       setCurrentList(filterType);
     },
     [dispatch, setCurrentList],

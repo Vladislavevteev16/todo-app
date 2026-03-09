@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import { Form, Input, notification } from "antd";
 
@@ -7,19 +8,17 @@ import { useForm, Controller } from "react-hook-form";
 import { Button } from "../../shared/Button";
 import { Loader } from "../../shared/Loader";
 
+import { login } from "../../redux/thunks/authThunk";
+
 import { useNavigate } from "react-router";
-
-import { authService } from "../../services/authService";
-
-import { useAuth } from "../../hooks/useAuth";
 
 import signUpImage from "../../assets/signUp.svg";
 
 import style from "./index.module.css";
 
 export const LoginForm = () => {
-  const { state, dispatch } = useAuth();
-  const { loading, error, message } = state;
+  const dispatch = useDispatch();
+  const { loading, error, message } = useSelector((state) => state.auth);
 
   const navigate = useNavigate();
 
@@ -44,8 +43,8 @@ export const LoginForm = () => {
 
   const formConfig = {
     defaultValues: {
-      email: localStorage.getItem("userEmail") || "",
-      password: "",
+      email: localStorage.getItem("userEmail") || "vbabangida@bk.ru",
+      password: "VladEvteev$1996",
     },
     mode: "onBlur",
   };
@@ -85,8 +84,7 @@ export const LoginForm = () => {
   const handleLogin = useCallback(
     async (credentials) => {
       try {
-        await authService.login(dispatch, credentials);
-
+        await dispatch(login(credentials));
         navigate("/");
       } catch (e) {
         console.error(e);
