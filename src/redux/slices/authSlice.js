@@ -13,7 +13,7 @@ export const register = createAsyncThunk(
     const { requestAuth } = extra;
     try {
       const response = await requestAuth.register(userData);
-      
+
       return response;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message);
@@ -41,6 +41,9 @@ export const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.token = null;
+    },
+    clearError: (state) => {
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -74,6 +77,6 @@ export const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, clearError } = authSlice.actions;
 
 export default authSlice.reducer;

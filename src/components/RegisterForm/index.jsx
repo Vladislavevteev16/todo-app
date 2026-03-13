@@ -8,13 +8,15 @@ import { useForm, Controller } from "react-hook-form";
 
 import { Button } from "../../shared/Button";
 
-import { register } from "../../redux/slices/authSlice";
+import { register, clearError } from "../../redux/slices/authSlice";
 
 import loginImage from "../../assets/login.svg";
 
+import { CLEAR_ERROR_DELAY } from "../../constants";
+
 import style from "./index.module.css";
 
-const DALAY_NAVIGATE_VALUE = 1500;
+const DELAY_NAVIGATE_VALUE = 1500;
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -66,7 +68,7 @@ export const RegisterForm = () => {
       password: {
         required: true,
         validate: (value) => {
-          if (value.length < 8) {
+          if (value.length < 6) {
             return "Password must be at least 6 characters";
           }
           if (!(/\d/.test(value) && /[@#$%^&*()]/.test(value))) {
@@ -108,9 +110,11 @@ export const RegisterForm = () => {
           duration: 3,
         });
         reset();
-        setTimeout(() => navigate("/login"), DALAY_NAVIGATE_VALUE);
+        setTimeout(() => navigate("/login"), DELAY_NAVIGATE_VALUE);
       } catch (e) {
         console.error(e);
+      } finally {
+        setTimeout(() => dispatch(clearError()), CLEAR_ERROR_DELAY);
       }
     },
     [dispatch, navigate, reset, api],

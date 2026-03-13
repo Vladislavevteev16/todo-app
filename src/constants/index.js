@@ -55,3 +55,5 @@ export const FETCH_ERROR_MESSAGE = {
   REMOVE_COMPLETED_ERROR_MSG: "Ошибка удаления выполненных тасок",
   UPDATE_TITLE_ERROR_MSG: "Ошибка изменения текста",
 };
+
+export const CLEAR_ERROR_DELAY = 500;
