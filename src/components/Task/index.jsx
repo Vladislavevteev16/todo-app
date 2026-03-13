@@ -1,5 +1,12 @@
 import { memo, useRef, useState, useEffect, useCallback, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
+import {
+  removeTask,
+  taskToggleCompleted,
+  updateTaskTitle,
+} from "../../redux/slices/todosSlice.js";
+
 import { Loader } from "../../shared/Loader";
 
 import { FILTER_TYPES, KEY_CODES } from "../../constants";
@@ -20,11 +27,6 @@ dayjs.extend(relativeTime);
 dayjs.locale("ru");
 
 import style from "./index.module.css";
-import {
-  removeTask,
-  taskToggleCompleted,
-  updateTaskTitle,
-} from "../../redux/thunks/todosThunk";
 
 export const Task = memo(
   ({ id, title, createdAdd, isCompleted, currentList }) => {
@@ -62,11 +64,11 @@ export const Task = memo(
           return;
         }
         await dispatch(
-          updateTaskTitle(
+          updateTaskTitle({
             id,
-            trimmedText[0].toUpperCase() + trimmedText.slice(1),
-          ),
-        );
+            text: trimmedText[0].toUpperCase() + trimmedText.slice(1),
+          }),
+        ).unwrap();
 
         setIsEdit(false);
       } catch (e) {

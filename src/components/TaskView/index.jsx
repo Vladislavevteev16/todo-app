@@ -16,8 +16,9 @@ import {
   addTask,
   getTasks,
   removeTaskCompleted,
-} from "../../redux/thunks/todosThunk";
-import { logout } from "../../redux/thunks/authThunk";
+} from "../../redux/slices/todosSlice";
+
+import { logout } from "../../redux/slices/authSlice";
 
 import { useTaskAdding } from "../../hooks/useTaskCreate";
 
@@ -43,7 +44,7 @@ export const TaskView = () => {
   const inputRef = useRef(null);
 
   const todosAll = useSelector((state) => state.todos.todosAll);
-
+  
   const currentTodos = useSelector((state) => state.todos[currentList]);
 
   const dispatch = useDispatch();
@@ -52,7 +53,7 @@ export const TaskView = () => {
 
   const handleRemoveAllTasks = () => dispatch(removeTaskCompleted(todosAll));
 
-  const handleAddTask = useCallback(() => {
+  const handleAddTask = useCallback(async () => {
     const trimmedText = taskText.trim();
 
     if (trimmedText === "") {
@@ -60,8 +61,11 @@ export const TaskView = () => {
       return;
     }
     const formattedText = trimmedText[0].toUpperCase() + trimmedText.slice(1);
-
-    dispatch(addTask(formattedText));
+    try {
+      await dispatch(addTask(formattedText)).unwrap();
+    } catch (error) {
+      console.error(error.message);
+    }
 
     setTaskText("");
     setIsAddingTask(false);
@@ -74,6 +78,7 @@ export const TaskView = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    localStorage.removeItem("token");
     navigate("/login");
   };
 

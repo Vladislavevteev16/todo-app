@@ -1,12 +1,20 @@
-import { legacy_createStore as createStore, applyMiddleware } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 
-import { thunk } from "redux-thunk";
+import authReducer from "../slices/authSlice";
+import todosReducer from "../slices/todosSlice";
 
-import { composeWithDevTools } from "@redux-devtools/extension";
+import { requestTodos } from "../../api/todos/requestTodos";
+import { requestAuth } from "../../api/auth/requestAuth";
 
-import { rootReducer } from "../reducers/rootReducer";
+const store = configureStore({
+  reducer: { auth: authReducer, todos: todosReducer },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware({
+      thunk: {
+        extraArgument: { requestTodos, requestAuth },
+      },
+    });
+  },
+});
 
-export const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(thunk)),
-);
+export default store;

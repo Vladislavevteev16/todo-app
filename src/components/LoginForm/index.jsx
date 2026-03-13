@@ -8,7 +8,7 @@ import { useForm, Controller } from "react-hook-form";
 import { Button } from "../../shared/Button";
 import { Loader } from "../../shared/Loader";
 
-import { login } from "../../redux/thunks/authThunk";
+import { login } from "../../redux/slices/authSlice";
 
 import { useNavigate } from "react-router";
 
@@ -43,8 +43,8 @@ export const LoginForm = () => {
 
   const formConfig = {
     defaultValues: {
-      email: localStorage.getItem("userEmail") || "vbabangida@bk.ru",
-      password: "VladEvteev$1996",
+      email: localStorage.getItem("userEmail") || "",
+      password: "",
     },
     mode: "onBlur",
   };
@@ -84,7 +84,8 @@ export const LoginForm = () => {
   const handleLogin = useCallback(
     async (credentials) => {
       try {
-        await dispatch(login(credentials));
+        const token = await dispatch(login(credentials)).unwrap();
+        localStorage.setItem("token", token);
         navigate("/");
       } catch (e) {
         console.error(e);

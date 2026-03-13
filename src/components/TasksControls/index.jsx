@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import { Button } from "../../shared/Button";
 
-import { todosUpdateCompletedFilter } from "../../redux/actions/todosActions";
+import { todosUpdateCompletedFilter } from "../../redux/slices/todosSlice";
 
 import { FILTER_OPTIONS } from "../../constants";
 

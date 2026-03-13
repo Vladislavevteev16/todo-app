@@ -8,7 +8,7 @@ import { useForm, Controller } from "react-hook-form";
 
 import { Button } from "../../shared/Button";
 
-import { register } from "../../redux/thunks/authThunk";
+import { register } from "../../redux/slices/authSlice";
 
 import loginImage from "../../assets/login.svg";
 
@@ -99,7 +99,7 @@ export const RegisterForm = () => {
   const handleRegisterUser = useCallback(
     async (userData) => {
       try {
-        await dispatch(register(userData));
+        await dispatch(register(userData)).unwrap();
         localStorage.setItem("userEmail", userData.email);
         api.success({
           message: "Успех",

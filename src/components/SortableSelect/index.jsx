@@ -2,9 +2,15 @@ import { useCallback, memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { Select, ConfigProvider } from "antd";
-import { getSortableValue } from "../../redux/actions/todosActions";
 
-import { SORTABLE_OPTIONS } from "../../constants";
+import {
+  nameasc,
+  namedesc,
+  newest,
+  oldest,
+} from "../../redux/slices/todosSlice";
+
+import { ACTION_TYPES, SORTABLE_OPTIONS } from "../../constants";
 import { FILTER_TYPES } from "../../constants";
 
 const OPTIONS_STYLE = {
@@ -20,7 +26,22 @@ export const SortableSelect = memo(({ currentList }) => {
   const dispatch = useDispatch();
 
   const handleChangeSort = useCallback(
-    (value) => dispatch(getSortableValue(value)),
+    (value) => {
+      switch (value) {
+        case ACTION_TYPES.NEWEST:
+          dispatch(newest());
+          break;
+        case ACTION_TYPES.OLDEST:
+          dispatch(oldest());
+          break;
+        case ACTION_TYPES.NAME_ASC:
+          dispatch(nameasc());
+          break;
+        case ACTION_TYPES.NAME_DESC:
+          dispatch(namedesc());
+          break;
+      }
+    },
     [dispatch],
   );
 
