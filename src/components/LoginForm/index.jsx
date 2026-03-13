@@ -8,11 +8,13 @@ import { useForm, Controller } from "react-hook-form";
 import { Button } from "../../shared/Button";
 import { Loader } from "../../shared/Loader";
 
-import { login } from "../../redux/slices/authSlice";
+import { login, clearError } from "../../redux/slices/authSlice";
 
 import { useNavigate } from "react-router";
 
 import signUpImage from "../../assets/signUp.svg";
+
+import { CLEAR_ERROR_DELAY } from "../../constants";
 
 import style from "./index.module.css";
 
@@ -43,7 +45,7 @@ export const LoginForm = () => {
 
   const formConfig = {
     defaultValues: {
-      email: localStorage.getItem("userEmail") || "",
+      email: localStorage.getItem("userEmail") || "vbabangida@bk.ru",
       password: "",
     },
     mode: "onBlur",
@@ -61,11 +63,11 @@ export const LoginForm = () => {
       password: {
         required: true,
         validate: (value) => {
-          if (value.length < 8) {
-            return "Password must be at least 8 characters";
+          if (value.length < 6) {
+            return "Password must be at least 6 characters";
           }
-          if (!(/\d/.test(value) && /[@#$%^&*()]/.test(value))) {
-            return "Must be contain at number and special character";
+          if (!/\d/.test(value)) {
+            return "Must be contain at number";
           }
 
           return true;
@@ -89,6 +91,8 @@ export const LoginForm = () => {
         navigate("/");
       } catch (e) {
         console.error(e);
+      } finally {
+        setTimeout(() => dispatch(clearError()), CLEAR_ERROR_DELAY);
       }
     },
     [dispatch, navigate],
