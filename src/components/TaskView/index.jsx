@@ -1,5 +1,6 @@
-import { useCallback, useMemo, useRef, useEffect } from "react";
+import { useCallback, useRef, useEffect } from "react";
 import { useNavigate } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 
 import { TaskControls } from "../TasksControls";
 import { TasksToolbar } from "../TasksToolbar";
@@ -11,16 +12,17 @@ import { Button } from "../../shared/Button";
 
 import { FILTER_TYPES } from "../../constants";
 
-import { useTodos } from "../../hooks/useTodos";
-import { useDispatch } from "../../hooks/useDispatch";
-import { useAuth } from "../../hooks/useAuth";
+import {
+  addTask,
+  getTasks,
+  removeTaskCompleted,
+} from "../../redux/slices/todosSlice";
+
+import { logout } from "../../redux/slices/authSlice";
 
 import { useTaskAdding } from "../../hooks/useTaskCreate";
 
 import { triggerErrorAnimation } from "../../utils/triggerErrorAnimation";
-
-import { todosService } from "../../services/todosService";
-import { authService } from "../../services/authService";
 
 import logoutImage from "../../assets/logout.svg";
 
@@ -41,60 +43,49 @@ export const TaskView = () => {
 
   const inputRef = useRef(null);
 
-  const todos = useTodos();
-
-  const { todosAll } = todos;
+  const todosAll = useSelector((state) => state.todos.todosAll);
+  
+  const currentTodos = useSelector((state) => state.todos[currentList]);
 
   const dispatch = useDispatch();
 
-  const { dispatch: authDispatch } = useAuth();
-
   const navigate = useNavigate();
 
-  const handleRemoveAllTasks = async () => {
-    try {
-      await todosService.removeTaskCompleted(dispatch, todosAll);
-    } catch (e) {
-      console.error(e);
-    }
-  };
+  const handleRemoveAllTasks = () => dispatch(removeTaskCompleted(todosAll));
 
   const handleAddTask = useCallback(async () => {
-    try {
-      const trimmedText = taskText.trim();
+    const trimmedText = taskText.trim();
 
-      if (trimmedText === "") {
-        triggerErrorAnimation(inputRef.current, style.errorAnimation);
-        return;
-      }
-      const formattedText = trimmedText[0].toUpperCase() + trimmedText.slice(1);
-
-      await todosService.addTask(dispatch, formattedText);
-
-      setTaskText("");
-      setIsAddingTask(false);
-      setCurrentList(FILTER_TYPES.ALL);
-    } catch (error) {
-      console.error(error);
+    if (trimmedText === "") {
+      triggerErrorAnimation(inputRef.current, style.errorAnimation);
+      return;
     }
+    const formattedText = trimmedText[0].toUpperCase() + trimmedText.slice(1);
+    try {
+      await dispatch(addTask(formattedText)).unwrap();
+    } catch (error) {
+      console.error(error.message);
+    }
+
+    setTaskText("");
+    setIsAddingTask(false);
+    setCurrentList(FILTER_TYPES.ALL);
   }, [taskText, dispatch, setIsAddingTask, setTaskText, setCurrentList]);
 
   useEffect(() => {
-    todosService.getTasks(dispatch);
+    dispatch(getTasks());
   }, [dispatch]);
 
   const handleLogout = () => {
-    authService.logout(authDispatch);
+    dispatch(logout());
+    localStorage.removeItem("token");
     navigate("/login");
   };
-
-  const currentTodos = useMemo(() => todos[currentList], [currentList, todos]);
 
   return (
     <div className={style.taskViewContainer}>
       <TaskControls currentList={currentList} setCurrentList={setCurrentList} />
       <TasksToolbar
-        todos={todos}
         currentList={currentList}
         handleRemoveAllTasks={handleRemoveAllTasks}
         handleStartAddingTask={handleStartAddingTask}

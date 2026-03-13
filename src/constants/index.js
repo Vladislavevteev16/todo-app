@@ -46,3 +46,12 @@ export const SORTABLE_OPTIONS = [
   { value: "NAME_ASC", label: "По имени (А-Я)" },
   { value: "NAME_DESC", label: "По имени (Я-А)" },
 ];
+
+export const FETCH_ERROR_MESSAGE = {
+  GET_ALL_ERROR_MSG: "Ошибка загрузки",
+  ADD_TASK_ERROR_MSG: "Ошибка при добавлении таски",
+  REMOVE_TASK_ERROR_MSG: "Ошибка при удалении таски",
+  TOGGLE_STATUS_ERROR_MSG: "Ошибка при измении статуса",
+  REMOVE_COMPLETED_ERROR_MSG: "Ошибка удаления выполненных тасок",
+  UPDATE_TITLE_ERROR_MSG: "Ошибка изменения текста",
+};

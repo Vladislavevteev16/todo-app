@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo } from "react";
-
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 
 import { Form, Input, Select, notification, ConfigProvider } from "antd";
@@ -8,8 +8,7 @@ import { useForm, Controller } from "react-hook-form";
 
 import { Button } from "../../shared/Button";
 
-import { authService } from "../../services/authService";
-import { useAuth } from "../../hooks/useAuth";
+import { register } from "../../redux/slices/authSlice";
 
 import loginImage from "../../assets/login.svg";
 
@@ -18,14 +17,13 @@ import style from "./index.module.css";
 const DALAY_NAVIGATE_VALUE = 1500;
 
 export const RegisterForm = () => {
+  const dispatch = useDispatch();
+
+  const { error, message } = useSelector((state) => state.auth);
+
   const navigate = useNavigate();
 
   const [api, contextHolder] = notification.useNotification();
-
-  const {
-    state: { error, message },
-    dispatch,
-  } = useAuth();
 
   useEffect(() => {
     if (error) {
@@ -101,10 +99,8 @@ export const RegisterForm = () => {
   const handleRegisterUser = useCallback(
     async (userData) => {
       try {
-        await authService.register(dispatch, userData);
-
+        await dispatch(register(userData)).unwrap();
         localStorage.setItem("userEmail", userData.email);
-
         api.success({
           message: "Успех",
           description: "Регистрация прошла успешно!",

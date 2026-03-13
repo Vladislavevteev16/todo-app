@@ -1,11 +1,16 @@
 import { useCallback, memo } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import { Select, ConfigProvider } from "antd";
 
-import { useTodos } from "../../hooks/useTodos";
-import { useDispatch } from "../../hooks/useDispatch";
+import {
+  nameasc,
+  namedesc,
+  newest,
+  oldest,
+} from "../../redux/slices/todosSlice";
 
-import { SORTABLE_OPTIONS } from "../../constants";
+import { ACTION_TYPES, SORTABLE_OPTIONS } from "../../constants";
 import { FILTER_TYPES } from "../../constants";
 
 const OPTIONS_STYLE = {
@@ -17,17 +22,34 @@ const OPTIONS_STYLE = {
 import style from "./index.module.css";
 
 export const SortableSelect = memo(({ currentList }) => {
-  const { todosAll } = useTodos();
+  const todosAll = useSelector((state) => state.todos.todosAll);
   const dispatch = useDispatch();
 
   const handleChangeSort = useCallback(
-    (value) => dispatch({ type: value }),
+    (value) => {
+      switch (value) {
+        case ACTION_TYPES.NEWEST:
+          dispatch(newest());
+          break;
+        case ACTION_TYPES.OLDEST:
+          dispatch(oldest());
+          break;
+        case ACTION_TYPES.NAME_ASC:
+          dispatch(nameasc());
+          break;
+        case ACTION_TYPES.NAME_DESC:
+          dispatch(namedesc());
+          break;
+      }
+    },
     [dispatch],
   );
 
-  if (todosAll.length === 0 && currentList !== FILTER_TYPES.COMPLETED) {
+  if (todosAll.length === 0) {
     return null;
   }
+
+  if (currentList === FILTER_TYPES.COMPLETED) return null;
 
   return (
     <ConfigProvider

@@ -1,11 +1,8 @@
 import { Navigate, Outlet } from "react-router";
-
-import { useAuth } from "../../hooks/useAuth";
+import { useSelector } from "react-redux";
 
 export const ProtectedRoute = () => {
-  const {
-    state: { token },
-  } = useAuth();
+  const { token } = useSelector((state) => state.auth);
 
   return token ? <Outlet /> : <Navigate to="/login" replace />;
 };

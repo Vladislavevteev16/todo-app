@@ -1,5 +1,7 @@
 import { Button } from "../../shared/Button";
 
+import { useSelector } from "react-redux";
+
 import { FILTER_TYPES } from "../../constants";
 
 import style from "./index.module.css";
@@ -7,10 +9,12 @@ import style from "./index.module.css";
 export const TasksToolbar = ({
   handleStartAddingTask,
   handleRemoveAllTasks,
-  todos,
+
   currentList,
 }) => {
-  const todosCompletedLength = todos.todosAll.filter(
+  const todosAll = useSelector((state) => state.todos.todosAll);
+
+  const todosCompletedLength = todosAll.filter(
     (todo) => todo.isCompleted,
   ).length;
 

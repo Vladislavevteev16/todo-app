@@ -5,15 +5,9 @@ import style from "./index.module.css";
 export const TaskList = ({ currentTodos, currentList }) => {
   return (
     <ul className={style.taskListContainer}>
-      {currentTodos.map(({ id, title, createdAdd, isCompleted }) => (
-        <li key={id}>
-          <Task
-            date={createdAdd}
-            value={title}
-            id={id}
-            isCompleted={isCompleted}
-            currentList={currentList}
-          />
+      {currentTodos.map((task) => (
+        <li key={task.id}>
+          <Task {...task} currentList={currentList} />
         </li>
       ))}
     </ul>
