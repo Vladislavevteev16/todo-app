@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 import { Form, Input, Select, notification, ConfigProvider } from "antd";
 

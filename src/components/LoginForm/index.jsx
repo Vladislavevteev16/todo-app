@@ -10,7 +10,7 @@ import { Loader } from "../../shared/Loader";
 
 import { login, clearError } from "../../redux/slices/authSlice";
 
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 
 import signUpImage from "../../assets/signUp.svg";
 

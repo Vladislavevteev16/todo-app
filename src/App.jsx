@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate } from "react-router";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 import { TaskView } from "./components/TaskView";
 import { Layout } from "./components/Layout";
